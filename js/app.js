@@ -1,7 +1,7 @@
 'use strict';
 var imageContainer = document.getElementById('product-container');
 var dataContainer = document.getElementById('data-container');
-
+var uniqueImageArray =[];
 
 //array to store my product object instances
 var productArray = [];
@@ -62,7 +62,21 @@ productArray.push(usb);
 //funtion for selecting random index in our product array
 function getRandomImage(){
   var randomIndex = getRandomNumber(productArray.length);
+
+  while(uniqueImageArray.includes(randomIndex)){
+    randomIndex = getRandomNumber(productArray.length);
+  }
+
+  // add the index to the end of the arraay
+  uniqueImageArray.push(randomIndex);
+
+  // remove the oldest index from the array - that would be the first index
+  if(uniqueImageArray.length > 6){
+    uniqueImageArray.shift();
+  }
+
   var chosenImage = productArray[randomIndex];
+
   chosenImage.displayCount++;
   // create an img element
   var imageElement = document.createElement('img');
@@ -70,8 +84,12 @@ function getRandomImage(){
   imageElement.setAttribute('src', chosenImage.filepath);
   imageElement.setAttribute('alt', chosenImage.alt);
   imageElement.setAttribute('name', chosenImage.title);
+  // var radioInput = document.createElement('input');
+  // radioInput.setAttribute('type', 'radio');
+  // radioInput.setAttribute('value', 'chosenImage.alt');
   // append it to the parent container
   imageContainer.appendChild(imageElement);
+  // imageContainer.appendChild(radioInput);
 }
 // random number helper function - got this from mdn
 function getRandomNumber(max) {
