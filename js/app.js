@@ -2,7 +2,6 @@
 var imageContainer = document.getElementById('product-container');
 var dataContainer = document.getElementById('data-container');
 var uniqueImageArray =[];
-
 //array to store my product object instances
 var productArray = [];
 var roundCount = 25;
@@ -15,10 +14,8 @@ function Product(name){
   this.title = name;
   this.clicks = 0;
   this.displayCount = 0;
-
   productArray.push(this);
 }
-
 new Product('bag');
 new Product('banana');
 new Product('bathroom');
@@ -57,8 +54,6 @@ var sweep = {
 //push the objects into the product array
 productArray.push(sweep);
 productArray.push(usb);
-
-
 //funtion for selecting random index in our product array
 function getRandomImage(){
   var randomIndex = getRandomNumber(productArray.length);
@@ -74,9 +69,7 @@ function getRandomImage(){
   if(uniqueImageArray.length > 6){
     uniqueImageArray.shift();
   }
-
   var chosenImage = productArray[randomIndex];
-
   chosenImage.displayCount++;
   // create an img element
   var imageElement = document.createElement('img');
@@ -91,7 +84,6 @@ function getRandomImage(){
 function getRandomNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
-
 //callback function for our event listener
 function callbackClick(event){
   //variable to identify alt value of the current target
@@ -159,7 +151,7 @@ var productName = [];
 var productVotes = [];
 var displayTimes = [];
   for (var i=0; i<productArray.length; i++){
-    //add the name of each product to the names array
+    //add the name etc of each product to the names array
     productName.push(productArray[i].title);
     productVotes.push(productArray[i].clicks);
     displayTimes.push(productArray[i].displayCount);
