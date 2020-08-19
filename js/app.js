@@ -4,9 +4,28 @@ var dataContainer = document.getElementById('data-container');
 var uniqueImageArray =[];
 //array to store my product object instances
 var productArray = [];
-var roundCount = 25;
+var roundCount = 5;
 //click coutner
 var clickCount = 0;
+//array for parsed products
+var parsedProductsArray = [];
+
+//Chcek if local storage is empty
+function checkLocalStorage() {
+  if (localStorage.getItem('products') === null) {
+    //if empty run new products
+    newProducts();
+  } else {
+       //get the products from storage
+       var getProducts = localStorage.getItem('products');
+       //parse back to js from JSON
+        var parsedProductsArray = JSON.parse(getProducts);
+        //make product array = stored data to keep running total.
+        productArray = parsedProductsArray;
+  } 
+}
+checkLocalStorage();
+
 //constructor to create product object instances
 function Product(name){
   this.filepath = `../img/${name}.jpg`;
@@ -16,28 +35,29 @@ function Product(name){
   this.displayCount = 0;
   productArray.push(this);
 }
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-// new Product('sweep');
-new Product('tauntaun');
-new Product('unicorn');
-// new Product('usb');
-new Product('water-can');
-new Product('wine-glass');
-//create an object literal for usb & sweep since they arent jpg
-var usb = {
+function newProducts(){
+  new Product('bag');
+  new Product('banana');
+  new Product('bathroom');
+  new Product('boots');
+  new Product('breakfast');
+  new Product('bubblegum');
+  new Product('chair');
+  new Product('cthulhu');
+  new Product('dog-duck');
+  new Product('dragon');
+  new Product('pen');
+  new Product('pet-sweep');
+  new Product('scissors');
+  new Product('shark');
+  // new Product('sweep');
+  new Product('tauntaun');
+  new Product('unicorn');
+  // new Product('usb');
+  new Product('water-can');
+  new Product('wine-glass');
+  //create an object literal for usb & sweep since they arent jpg
+  var usb = {
   filepath: '../img/usb.gif',
   alt: 'usb',
   title:'usb',
@@ -54,6 +74,7 @@ var sweep = {
 //push the objects into the product array
 productArray.push(sweep);
 productArray.push(usb);
+}
 //funtion for selecting random index in our product array
 function getRandomImage(){
   var randomIndex = getRandomNumber(productArray.length);
@@ -88,7 +109,6 @@ function getRandomNumber(max) {
 function callbackClick(event){
   //variable to identify alt value of the current target
   var altValue = event.target.alt;
-
   // loop through my array until I find the alt that matches my alt
   for(var i=0; i<productArray.length; i++){
     //if target alt value matches the array[i] alt value then increase array[i] clicks value.
@@ -104,9 +124,13 @@ function callbackClick(event){
       imageContainer.removeEventListener('click', callbackClick);
       // clickPerItem();
       percentClicked();
-      // displayResults();
+      // render graph
       graphResults();
-    }
+      // convert productArray to JSON strings
+      var stringProducts = JSON.stringify(productArray);
+      //store products in products label
+      localStorage.setItem('products', stringProducts);
+      }
     getRandomImage();
     getRandomImage();
     getRandomImage();
@@ -144,7 +168,15 @@ function percentClicked(){
 getRandomImage();
 getRandomImage();
 getRandomImage();
+//---------------
+//gather data
+//convert to json
+//save in local storage
+//get data
+//parse to js
+//sum total.
 
+//---------------
 //gather names, times shown & votes to display in graph
 function graphResults(){
 var productName = [];
