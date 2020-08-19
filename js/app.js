@@ -84,8 +84,8 @@ function getRandomImage(){
   imageElement.setAttribute('src', chosenImage.filepath);
   imageElement.setAttribute('alt', chosenImage.alt);
   imageElement.setAttribute('name', chosenImage.title);
+  //append to parent
   imageContainer.appendChild(imageElement);
-  // imageContainer.appendChild(radioInput);
 }
 // random number helper function - got this from mdn
 function getRandomNumber(max) {
