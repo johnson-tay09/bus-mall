@@ -8,7 +8,7 @@ var productArray = [];
 var roundCount = 25;
 //click coutner
 var clickCount = 0;
-  //constructor to create product object instances
+//constructor to create product object instances
 function Product(name){
   this.filepath = `../img/${name}.jpg`;
   this.alt = name;
@@ -84,10 +84,6 @@ function getRandomImage(){
   imageElement.setAttribute('src', chosenImage.filepath);
   imageElement.setAttribute('alt', chosenImage.alt);
   imageElement.setAttribute('name', chosenImage.title);
-  // var radioInput = document.createElement('input');
-  // radioInput.setAttribute('type', 'radio');
-  // radioInput.setAttribute('value', 'chosenImage.alt');
-  // append it to the parent container
   imageContainer.appendChild(imageElement);
   // imageContainer.appendChild(radioInput);
 }
@@ -116,6 +112,8 @@ function callbackClick(event){
       imageContainer.removeEventListener('click', callbackClick);
       // clickPerItem();
       percentClicked();
+      // displayResults();
+      graphResults();
     }
     getRandomImage();
     getRandomImage();
@@ -125,22 +123,6 @@ function callbackClick(event){
 // wait for a click then run the callback function
 imageContainer.addEventListener('click', callbackClick);
 
-//function to display total clicks
-// function clickPerItem(){
-//   //create a ul to be the parent
-//   var listData = document.createElement('ul');
-//   dataContainer.appendChild(listData);
-//   // loop through the array and create an li for each clicks value
-//   for(var i=0; i<productArray.length; i++){
-//     // create an li element
-//     var dataElement = document.createElement('li');
-//     //populate the li with click @ productArry @ i
-//     dataElement.textContent = `The ${productArray[i].alt} was clicked ${productArray[i].clicks} times.`;
-//     //append li to ul
-//     listData.appendChild(dataElement);
-//   }
-  
-// }
 //function to display % of time clicked when displayed
 function percentClicked(){
     //create a ul to be the parent
@@ -150,19 +132,12 @@ function percentClicked(){
     for(var i=0; i<productArray.length; i++){
       // create an li element
       if(productArray[i].displayCount > 0 && productArray[i].clicks > 0){
-        // var dataElement = document.createElement('li');
-        // //populate the li with click @ productArry @ i
-        // dataElement.textContent = `The ${productArray[i].alt} was clicked ${productArray[i].clicks} times.`;
-        // //append li to ul
-        // listData.appendChild(dataElement);
-        //-------------------------
         var dataElement = document.createElement('li');
         //populate the li with click @ productArry @ i
         var clickMath = Math.round((productArray[i].clicks/productArray[i].displayCount) * 100);
         dataElement.textContent = `The ${productArray[i].alt} was shown ${productArray[i].displayCount} time(s), voted for ${productArray[i].clicks} time(s) or ${clickMath}% of the time it was shown.`;
         //append li to ul
-        listData.appendChild(dataElement);
-        
+        listData.appendChild(dataElement); 
       }
       else{
         var dataElement = document.createElement('li');
@@ -170,13 +145,6 @@ function percentClicked(){
         dataElement.textContent = `The ${productArray[i].alt} was shown ${productArray[i].displayCount} time(s) and voted for ${productArray[i].clicks} time(s).`;
         //append li to ul
         listData.appendChild(dataElement);
-
-        // var dataElement = document.createElement('li');
-        // //populate the li with click @ productArry @ i
-        // // var clickMath = (productArray[i].displayCount/productArray[i].clicks);
-        // dataElement.textContent = `The ${productArray[i].alt} was not shown.`;
-        // //append li to ul
-        // listData.appendChild(dataElement);
       }
     }
 }
@@ -184,3 +152,155 @@ function percentClicked(){
 getRandomImage();
 getRandomImage();
 getRandomImage();
+
+//gather names, times shown & votes to display in graph
+function graphResults(){
+var productName = [];
+var productVotes = [];
+var displayTimes = [];
+  for (var i=0; i<productArray.length; i++){
+    //add the name of each product to the names array
+    productName.push(productArray[i].title);
+    productVotes.push(productArray[i].clicks);
+    displayTimes.push(productArray[i].displayCount);
+  }
+  //get parent element
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: productName,
+        datasets: [{
+            label: '# of Votes',
+            data: productVotes,
+            backgroundColor: [
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(153, 102, 255, 0.2)',   
+            ],
+            borderColor: [
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(153, 102, 255, 1)',
+            ],
+            borderWidth: 1,},
+            {label: '# times shown',
+            data: displayTimes,
+            backgroundColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)',
+                
+            ],
+            borderColor: [
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(75, 192, 192, 1)',
+            ],
+            borderWidth: 1
+        }]
+        
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+}
+
+
+
