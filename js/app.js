@@ -158,13 +158,11 @@ function graphResults(){
 var productName = [];
 var productVotes = [];
 var displayTimes = [];
-  
   for (var i=0; i<productArray.length; i++){
     //add the name of each product to the names array
     productName.push(productArray[i].title);
     productVotes.push(productArray[i].clicks);
     displayTimes.push(productArray[i].displayCount);
-  
   }
   //get parent element
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -229,8 +227,8 @@ var myChart = new Chart(ctx, {
               'rgba(153, 102, 255, 1)',
               'rgba(153, 102, 255, 1)',
             ],
-            borderWidth: 1,
-            label: '# times shown',
+            borderWidth: 1,},
+            {label: '# times shown',
             data: displayTimes,
             backgroundColor: [
                 'rgba(75, 192, 192, 1)',
@@ -305,38 +303,4 @@ var myChart = new Chart(ctx, {
 }
 
 
-
-
-// function displayResults() {
-//   var names = [];
-//   for (var i = 0; i < productArray.length; i++) {
-//     names.push(productArray[i].title);
-//   }
-//   var votes = [];
-//   for (var j = 0; j < productArray.length; j++) {
-//     votes.push(productArray[j].clicks);
-//   }
-//   var ctx = document.getElementById('myChart').getContext('2d')
-//   var chartConfig = {
-//     type: 'bar',
-//     data: {
-//       labels: names,
-//       datasets: [{
-//         label: '# of Votes',
-//         data: votes,
-//         backgroundColor: 'rgba(255, 99, 132, 0.2)',    
-//       }]
-//     },
-//     options: {
-//       scales: {
-//         yAxes: [{
-//           ticks: {
-//             beginAtZero: true
-//           }
-//         }]
-//       }
-//     }
-//   };
-//   return new Chart(ctx, chartConfig);
-// }
 
