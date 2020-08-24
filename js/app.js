@@ -1,19 +1,23 @@
 'use strict';
+// parent element for images
 var imageContainer = document.getElementById('product-container');
+//parent element for data
 var dataContainer = document.getElementById('data-container');
+//array to stop images repeating 
 var uniqueImageArray =[];
 //array to store my product object instances
 var productArray = [];
-var roundCount = 5;
-//click coutner
+//variable for number of votes allowed 
+var roundCount = 25;
+//click counter
 var clickCount = 0;
 //array for parsed products
 var parsedProductsArray = [];
 
-//Chcek if local storage is empty
+//Check if local storage is empty
 function checkLocalStorage() {
   if (localStorage.getItem('products') === null) {
-    //if empty run new products
+    //if empty run new products to create object instances
     newProducts();
   } else {
        //get the products from storage
@@ -50,10 +54,8 @@ function newProducts(){
   new Product('pet-sweep');
   new Product('scissors');
   new Product('shark');
-  // new Product('sweep');
   new Product('tauntaun');
   new Product('unicorn');
-  // new Product('usb');
   new Product('water-can');
   new Product('wine-glass');
   //create an object literal for usb & sweep since they arent jpg
@@ -168,22 +170,14 @@ function percentClicked(){
 getRandomImage();
 getRandomImage();
 getRandomImage();
-//---------------
-//gather data
-//convert to json
-//save in local storage
-//get data
-//parse to js
-//sum total.
-
-//---------------
-//gather names, times shown & votes to display in graph
+//graph the number of times a product was shown and voted for.
 function graphResults(){
+  //store properties that will be graphed.
 var productName = [];
 var productVotes = [];
 var displayTimes = [];
+//loop for adding each property to be graphed to their array
   for (var i=0; i<productArray.length; i++){
-    //add the name etc of each product to the names array
     productName.push(productArray[i].title);
     productVotes.push(productArray[i].clicks);
     displayTimes.push(productArray[i].displayCount);
